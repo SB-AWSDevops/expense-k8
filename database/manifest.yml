@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: premdaas/mysql:v1.0
+        image: premdaas/mysql:1.0
 
 ---
 apiVersion: v1
