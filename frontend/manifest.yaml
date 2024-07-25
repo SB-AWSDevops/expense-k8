@@ -88,16 +88,16 @@ data:
             proxy_pass http://backend:8080/;
         }
 
-        }
-
-    } 
+      }
+    }
 ---
+
+
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: frontend
   namespace: expense
-  # these labels are deployment related labels
   labels:
     component: frontend
     project: expense
@@ -109,7 +109,6 @@ spec:
       component: frontend
       project: expense
       tier: app
-  # pod definition
   template:
     metadata:
       labels:
@@ -125,9 +124,6 @@ spec:
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
-        # envFrom:
-      # - configMapRef:
-      #     name: frontend
       volumes:
       - name: nginx-conf
         configMap:
@@ -135,8 +131,6 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
-
-
 ---
 apiVersion: v1
 kind: Service
@@ -148,7 +142,7 @@ spec:
   selector:
     component: frontend
     project: expense
-    tier: db
+    tier: web
   ports:
   - protocol: TCP
     port: 80 #service-port
